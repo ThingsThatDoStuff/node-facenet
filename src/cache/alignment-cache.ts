@@ -140,7 +140,7 @@ export class AlignmentCache extends EventEmitter implements Alignable {
     )
 
     const faceMd5List = faceList.map(face => face.md5)
-    await this.store.put(md5, faceMd5List)
+    await this.store.set(md5, faceMd5List)
   }
 
 }

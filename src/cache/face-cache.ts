@@ -79,9 +79,9 @@ export class FaceCache {
   public async put(
     face: Face,
   ): Promise<void> {
-    await this.store.put(face.md5, face)  // Face.toJSON()
+    await this.store.set(face.md5, face)  // Face.toJSON()
     if (face.embedding) {
-      await this.embeddingStore.put(face.md5, face.embedding.tolist())
+      await this.embeddingStore.set(face.md5, face.embedding.tolist())
     }
     const faceFile = this.file(face.md5)
 
@@ -117,7 +117,10 @@ export class FaceCache {
     const md5List = [] as string[]
 
     let n = 0
-    for await (const key of this.store.keys({ prefix })) {
+    for await (const key of this.store.keys()) {
+      if (!key.startsWith(prefix)) {
+        continue;
+      }
       if (n++ >= limit) {
         break
       }

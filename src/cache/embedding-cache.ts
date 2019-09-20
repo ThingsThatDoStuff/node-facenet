@@ -79,12 +79,12 @@ export class EmbeddingCache extends EventEmitter implements Embeddingable {
     log.silly('EmbeddingCache', 'embedding() cache MISS')
     this.emit('miss', face)
     const embedding = await this.facenet.embedding(face)
-    await this.store.put(faceMd5, embedding.tolist())
+    await this.store.set(faceMd5, embedding.tolist())
     return embedding
   }
 
   public async count(): Promise<number> {
-    return await this.store.count()
+    return await this.store.size
   }
 
   public async destroy(): Promise<void> {
