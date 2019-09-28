@@ -59,7 +59,7 @@
     "typescript": "^3.6.3"
   },
   "scripts": {
-    "check-version": "./bin/check-version.sh",
+    "check-version": "bash -x ./bin/check-version.sh",
     "clean": "npm run clean:dist && npm run clean:python3 && npm run clean:models",
     "clean:dist": "shx rm -fr dist/*",
     "clean:python3": "shx rm -fr python3/*",
@@ -85,7 +85,7 @@
     "test:coverage": "nyc report --reporter=text-lcov | coveralls",
     "test:ts": "tape -r ts-node/register \"src/**/*.spec.ts\" \"tests/**/*.spec.ts\"",
     "test:py": ". python3/bin/activate && PYTHONPATH='src/:python3/facenet/src/' pytest src/ tests/",
-    "test:pack": "bash -x scripts/npm-pack-testing.sh",
+    "test:pack": "bash -x ./scripts/npm-pack-testing.sh",
     "venv": "python3 -m venv python3 && . python3/bin/activate && pip3 install -r requirements.txt && pip3 install --upgrade numpy >/dev/stdout"
   },
   "repository": {
